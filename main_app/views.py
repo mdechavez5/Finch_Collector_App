@@ -74,6 +74,22 @@ class ChoreoCreate(View):
         Choreo.objects.create(title=title, vid=vid, embed=embed, dancer=dancer)
         return redirect('dancer_detail', pk=pk)
 
+class PlaylistChoreoAssoc(View):
+
+    def get(self, request, pk, choreo_pk):
+        # get the query param from the url
+        assoc = request.GET.get("assoc")
+        if assoc == "remove":
+            # get the playlist by the id and
+            # remove from the join table the given song_id
+            Playlist.objects.get(pk=pk).choreos.remove(choreo_pk)
+        if assoc == "add":
+            # get the playlist by the id and
+            # add to the join table the given song_id
+            Playlist.objects.get(pk=pk).choreos.add(choreo_pk)
+        return redirect('home')
+
+
 class TeamsList(TemplateView):
     template_name = "teams_list.html"
 

@@ -10,10 +10,17 @@
 
                 {% for choreo in playlist.choreos.all %}
 
-                    <div class="choreos">
+                    <div class="choreo">
                         <span>{{forloop.counter}}</span>
                         <span><b>{{choreo.title}}</b></span>
                         <span><a href="{{choreo.vid}}">Link</a></span>
+                        <span>
+                            <a href="{% url 'playlist_choreo_assoc' playlist.pk choreo.pk %}?assoc=remove" class="button is-danger is-outlined">
+                            <span class="icon is-small">
+                                <i class="fas fa-times"></i>
+                            </span>
+                            </a>
+                        </span>
                     </div>
 
                 {% endfor %}
