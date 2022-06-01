@@ -1,7 +1,24 @@
 {% extends 'base.html' %}
 {% block title %} Home {% endblock %}
 {% block content %}
-    <div>
-        <h1>Home</h1>
+    <div class="home__team">
+        {% for team in teams %}
+
+            <div class="team mb-5">
+                <h3 class="title is-3 has-text-success">{{team.title}}</h3>
+                <hr />
+
+                {% for dancer in team.dancers.all %}
+
+                    <div class="song">
+                        <span>{{forloop.counter}}</span>
+                        <span><b>{{dancer.name}}</b></span>
+                    </div>
+
+                {% endfor %}
+            </div>
+        {% empty %} 
+            <div class="team mb-5">"There are no dancers on this team"</div>
+        {% endfor %}
     </div>
 {% endblock %}

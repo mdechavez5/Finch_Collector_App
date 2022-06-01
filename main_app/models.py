@@ -22,3 +22,12 @@ class Choreo(models.Model):
 
     def __str__(self):
         return self.title
+
+class Team(models.Model):
+    title = models.CharField(max_length=150)
+    # this is going to create the many to many relationship and join table
+    dancers = models.ManyToManyField(Dancer)
+
+    def __str__(self):
+        return self.title
+
