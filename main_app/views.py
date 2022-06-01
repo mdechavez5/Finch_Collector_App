@@ -22,7 +22,7 @@ class DancerList(TemplateView):
         name = self.request.GET.get("name")
 
         if name != None:
-            context["dancers"] = Dancer.objects.filter(name_icontains=name)
+            context["dancers"] = Dancer.objects.filter(name=name)
             context["header"] = f"Searching for {name}"
         else:
             context["dancers"] = Dancer.objects.all()
