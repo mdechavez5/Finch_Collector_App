@@ -4,7 +4,8 @@ from django.views.generic.base import TemplateView
 from django.views.generic import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse
-from .models import Dancer
+from django.shortcuts import redirect
+from .models import Dancer, Choreo
 
 # Create your views here.
 class Home(TemplateView):
@@ -57,3 +58,13 @@ class DancerDelete(DeleteView):
     model = Dancer
     template_name = "dancer_delete.html"
     success_url = "/dancers/"
+
+class ChoreoCreate(View):
+
+    def post(self, request, pk):
+        title = request.POST.get("title")
+        vid = request.POST.get("vid")
+        embed = request.POST.get("embed")
+        dancer = Dancer.objects.get(pk=pk)
+        Choreo.objects.create(title=title, vid=vid, embed=embed, dancer=dancer)
+        return redirect('dancer_detail', pk=pk)

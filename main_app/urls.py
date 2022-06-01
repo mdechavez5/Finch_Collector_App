@@ -9,4 +9,5 @@ urlpatterns = [
     path('dancers/<int:pk>/', views.DancerDetail.as_view(), name="dancer_detail"),
     path('dancers/<int:pk>/update',views.DancerUpdate.as_view(), name="dancer_update"),
     path('dancers/<int:pk>/delete',views.DancerDelete.as_view(), name="dancer_delete"),
+    path('dancers/<int:pk>/choreos/new/', views.ChoreoCreate.as_view(), name="choreo_create")
 ] 
