@@ -8,6 +8,25 @@
     <h1 class="title">{{dancer.name}}</h1>
 </div>
 <div class="detail__container">
+    <!-- inside container -->
+    <div class="detail__choreos mb-5">
+        <h3 class="title is-3">Performances</h3>
+
+    {% for choreo in dancer.choreo.all %}
+        <div class="choreo">
+            <span>{{forloop.counter}}</span>
+            <span><b>{{choreo.title}}</b></span>
+            <span><a href="{{choreo.vid}}">Link</a></span>
+        </div>
+	{% empty %}
+        <article class="message">
+            <div class="message-header">
+                <p>No Vids Available</p>
+            </div>
+        </article>
+    {% endfor %}
+    </div>
+<!--  above about section  -->
     <div class="buttons">
         <a href="{% url 'dancer_update' dancer.pk %}" class="button is-info">
             <span class="icon">

@@ -12,3 +12,13 @@ class Dancer(models.Model):
     
     class Meta:
         ordering = ['name']
+
+
+class Choreo(models.Model):
+    title = models.CharField(max_length=150)
+    vid = models.CharField(max_length=250)
+    embed = models.CharField(max_length=300)
+    dancer = models.ForeignKey(Dancer, on_delete=models.CASCADE, related_name="choreo")
+
+    def __str__(self):
+        return self.title
