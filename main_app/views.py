@@ -2,7 +2,8 @@ from django.shortcuts import render
 from django.views import View 
 from django.views.generic.base import TemplateView
 from django.views.generic import DetailView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
+from django.urls import reverse
 from .models import Dancer
 
 # Create your views here.
@@ -40,4 +41,14 @@ class DancerCreate(CreateView):
     model = Dancer
     fields = ['name', 'img', 'bio']
     template_name = "dancer_create.html"
-    success_url = "/dancers/"
+    # success_url = "/dancers/"
+    def get_success_url(self):
+        return reverse('dancer_detail', kwargs={'pk': self.object.pk})
+
+class DancerUpdate(UpdateView):
+    model = Dancer
+    fields = ['name', 'img', 'bio']
+    template_name = "dancer_update.html"
+    # success_url = "/dancers/"
+    def get_success_url(self):
+        return reverse('dancer_detail', kwargs={'pk': self.object.pk})

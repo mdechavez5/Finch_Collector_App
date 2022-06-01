@@ -7,4 +7,5 @@ urlpatterns = [
     path('dancers/', views.DancerList.as_view(), name="dancer_list"),
     path('dancers/new/', views.DancerCreate.as_view(), name="dancer_create"),
     path('dancers/<int:pk>/', views.DancerDetail.as_view(), name="dancer_detail"),
+    path('dancers/<int:pk>/update',views.DancerUpdate.as_view(), name="dancer_update"),
 ] 
