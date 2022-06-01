@@ -73,3 +73,6 @@ class ChoreoCreate(View):
         dancer = Dancer.objects.get(pk=pk)
         Choreo.objects.create(title=title, vid=vid, embed=embed, dancer=dancer)
         return redirect('dancer_detail', pk=pk)
+
+class TeamsList(TemplateView):
+    template_name = "teams_list.html"
