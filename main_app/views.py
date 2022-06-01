@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views import View 
 from django.views.generic.base import TemplateView
 from django.views.generic import DetailView
+from django.views.generic.edit import CreateView
 from .models import Dancer
 
 # Create your views here.
@@ -34,3 +35,9 @@ class DancerDetail(DetailView):
     #     context = super().get_context_data(**kwargs)
     #     context["playlists"] = Playlist.objects.all()
     #     return context
+
+class DancerCreate(CreateView):
+    model = Dancer
+    fields = ['name', 'img', 'bio']
+    template_name = "dancer_create.html"
+    success_url = "/dancers/"
