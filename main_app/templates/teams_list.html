@@ -1,5 +1,30 @@
 {% extends 'base.html' %}
-{% block title %} About {% endblock %}
+
+{% block title %}Teams{% endblock  %}
+
 {% block content %}
-    <h1>Teams</h1>
+
+<h1 class="title pt-5">Teams</h1>
+<div class="gallery">
+  {% for team in teams %}
+  <a href="">
+    <div class="card">
+      <div class="card-image">
+        <figure class="image is-square">
+          <img src="{{team.image}}" alt="{{team.title}}" />
+        </figure>
+      </div>
+      <div class="card-header">
+        <p class="card-header-title">{{artist.title}}</p>
+      </div>
+    </div>
+  </a>
+	{% empty %}
+  <article class="message">
+    <div class="message-header">
+      <p>No Teams Available</p>
+    </div>
+  </article>
+  {% endfor %}
+</div>
 {% endblock %}

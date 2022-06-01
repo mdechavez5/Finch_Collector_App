@@ -76,3 +76,15 @@ class ChoreoCreate(View):
 
 class TeamsList(TemplateView):
     template_name = "teams_list.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        title = self.request.GET.get("title")
+
+        if title != None:
+            context["teams"] = Team.objects.filter(title=title)
+            context["header"] = f"Searching for {title}"
+        else:
+            context["teams"] = Team.objects.all()
+            context["header"] = "Teams"
+        return context
