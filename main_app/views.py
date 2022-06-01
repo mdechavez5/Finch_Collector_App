@@ -13,6 +13,18 @@ class About(TemplateView):
 class DancerList(TemplateView):
     template_name = "dancer_list.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        name = self.request.GET.get("name")
+
+        if name != None:
+            context["dancers"] = Dancer.objects.filter(name_icontains=name)
+            context["header"] = f"Searching for {name}"
+        else:
+            context["dancers"] = Dancer.objects.all()
+            context["header"] = "Dancers"
+        return context
+
     # def get_context_data(self, **kwargs):
     #     context = super().get_context_data(**kwargs)
     #     # to get the query parameter we have to acccess it in the request.GET dictionary object        
