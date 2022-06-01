@@ -31,3 +31,12 @@ class Team(models.Model):
     def __str__(self):
         return self.title
 
+class Playlist(models.Model):
+    title = models.CharField(max_length=150)
+    # this is going to create the many to many relationship and join table
+    choreos = models.ManyToManyField(Choreo)
+
+    def __str__(self):
+        return self.title
+
+

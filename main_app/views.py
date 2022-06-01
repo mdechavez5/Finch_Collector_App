@@ -5,7 +5,7 @@ from django.views.generic import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse
 from django.shortcuts import redirect
-from .models import Dancer, Choreo, Team
+from .models import Dancer, Choreo, Team, Playlist
 
 # Create your views here.
 class Home(TemplateView):
@@ -13,6 +13,7 @@ class Home(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["teams"] = Team.objects.all()
+        context["playlists"] = Playlist.objects.all()
         return context
 
 class About(TemplateView):
