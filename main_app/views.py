@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views import View 
 from django.views.generic.base import TemplateView
 from django.views.generic import DetailView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse
 from .models import Dancer
 
@@ -52,3 +52,8 @@ class DancerUpdate(UpdateView):
     # success_url = "/dancers/"
     def get_success_url(self):
         return reverse('dancer_detail', kwargs={'pk': self.object.pk})
+
+class DancerDelete(DeleteView):
+    model = Dancer
+    template_name = "dancer_delete.html"
+    success_url = "/dancers/"
