@@ -6,6 +6,10 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse
 from django.shortcuts import redirect
 from .models import Dancer, Choreo, Team, Playlist
+from django.contrib.auth import login
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 # Create your views here.
 class Home(TemplateView):
@@ -19,6 +23,7 @@ class Home(TemplateView):
 class About(TemplateView):
     template_name = "about.html"
 
+@method_decorator(login_required, name='dispatch')
 class DancerList(TemplateView):
     template_name = "dancer_list.html"
 
@@ -27,10 +32,10 @@ class DancerList(TemplateView):
         name = self.request.GET.get("name")
 
         if name != None:
-            context["dancers"] = Dancer.objects.filter(name=name)
+            context["dancers"] = Dancer.objects.filter(name=name, user=self.request.user)
             context["header"] = f"Searching for {name}"
         else:
-            context["dancers"] = Dancer.objects.all()
+            context["dancers"] = Dancer.objects.filter(user=self.request.user)
             context["header"] = "Dancers"
         return context
 
@@ -50,6 +55,10 @@ class DancerCreate(CreateView):
     # success_url = "/dancers/"
     def get_success_url(self):
         return reverse('dancer_detail', kwargs={'pk': self.object.pk})
+    
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(DancerCreate, self).form_valid(form)
 
 class DancerUpdate(UpdateView):
     model = Dancer
@@ -104,3 +113,20 @@ class TeamsList(TemplateView):
             context["teams"] = Team.objects.all()
             context["header"] = "Teams"
         return context
+
+class Signup(View):
+    # show a form to fill out
+    def get(self, request):
+        form = UserCreationForm()
+        context = {"form": form}
+        return render(request, "registration/signup.html", context)
+    # on form ssubmit validate the form and login the user.
+    def post(self, request):
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect("artist_list")
+        else:
+            context = {"form": form}
+            return render(request, "registration/signup.html", context)

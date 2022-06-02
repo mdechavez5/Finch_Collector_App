@@ -11,5 +11,6 @@ urlpatterns = [
     path('dancers/<int:pk>/delete',views.DancerDelete.as_view(), name="dancer_delete"),
     path('dancers/<int:pk>/choreos/new/', views.ChoreoCreate.as_view(), name="choreo_create"),
     path('playlists/<int:pk>/choreos/<int:choreo_pk>/', views.PlaylistChoreoAssoc.as_view(), name="playlist_choreo_assoc"),
+    path('accounts/signup/', views.Signup.as_view(), name="signup"),
     path('teams/', views.TeamsList.as_view(), name="teams_list"),
 ] 
