@@ -5,6 +5,6 @@ $(".navbar-burger").click(function () {
 });
   
 $(".dropdown").click(function (event) {
-    console.log("this",this)
+    console.log("this",this.event)
     $(this).toggleClass("is-active");
 });
