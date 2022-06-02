@@ -45,10 +45,10 @@ class DancerDetail(DetailView):
     model = Dancer
     template_name = "dancer_detail.html"
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context["playlists"] = Playlist.objects.all()
-    #     return context
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["playlists"] = Playlist.objects.all()
+        return context
 
 class DancerCreate(CreateView):
     model = Dancer

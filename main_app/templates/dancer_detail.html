@@ -54,6 +54,36 @@
             <span>{{forloop.counter}}</span>
             <span><b>{{choreo.title}}</b></span>
             <span><a href="{{choreo.vid}}">Link</a></span>
+            <span>
+                <div class="dropdown">
+                  <div class="dropdown-trigger">
+                    <button
+                      class="button"
+                      aria-haspopup="true"
+                      aria-controls="dropdown-menu"
+                    >
+                      <span>Add to Playlist</span>
+                      <span class="icon is-small">
+                        <i class="fas fa-angle-down" aria-hidden="true"></i>
+                      </span>
+                    </button>
+                  </div>
+                  <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                    <div class="dropdown-content">
+                      {% for playlist in playlists %}
+                  <!-- each playlist becomes a drop
+                  down item with the ids needed to add to the join table  -->
+                      <a
+                        href="{% url 'playlist_choreo_assoc' playlist.pk choreo.pk %}?assoc=add"
+                        class="dropdown-item"
+                      >
+                        {{playlist.title}}
+                      </a>
+                      {% endfor %}
+                    </div>
+                  </div>
+                </div>
+              </span>
         </div>
 	{% empty %}
         <article class="message">
