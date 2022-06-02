@@ -12,18 +12,18 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 # Create your views here.
+@method_decorator(login_required, name='dispatch')
 class Home(TemplateView):
     template_name = "home.html"
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["teams"] = Team.objects.all()
-        context["playlists"] = Playlist.objects.all()
+        context["playlists"] = Playlist.objects.filter(user=self.request.user)
         return context
 
 class About(TemplateView):
     template_name = "about.html"
 
-@method_decorator(login_required, name='dispatch')
 class DancerList(TemplateView):
     template_name = "dancer_list.html"
 
@@ -32,10 +32,12 @@ class DancerList(TemplateView):
         name = self.request.GET.get("name")
 
         if name != None:
-            context["dancers"] = Dancer.objects.filter(name=name, user=self.request.user)
+            # context["dancers"] = Dancer.objects.filter(name=name, user=self.request.user)
+            context["dancers"] = Dancer.objects.filter(name=name)
             context["header"] = f"Searching for {name}"
         else:
-            context["dancers"] = Dancer.objects.filter(user=self.request.user)
+            # context["dancers"] = Dancer.objects.filter(user=self.request.user)
+            context["dancers"] = Dancer.objects.all()
             context["header"] = "Dancers"
         return context
 
@@ -126,7 +128,7 @@ class Signup(View):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect("artist_list")
+            return redirect("home")
         else:
             context = {"form": form}
             return render(request, "registration/signup.html", context)

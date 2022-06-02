@@ -7,7 +7,6 @@ class Dancer(models.Model):
     img = models.CharField(max_length=250)
     bio = models.CharField(max_length=500)
     created_at = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
 
     def __str__(self):
         return self.name
@@ -37,6 +36,7 @@ class Playlist(models.Model):
     title = models.CharField(max_length=150)
     # this is going to create the many to many relationship and join table
     choreos = models.ManyToManyField(Choreo)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
 
     def __str__(self):
         return self.title
