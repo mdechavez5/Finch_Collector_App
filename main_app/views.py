@@ -92,11 +92,11 @@ class PlaylistChoreoAssoc(View):
         assoc = request.GET.get("assoc")
         if assoc == "remove":
             # get the playlist by the id and
-            # remove from the join table the given song_id
+            # remove from the join table the given choreo_id
             Playlist.objects.get(pk=pk).choreos.remove(choreo_pk)
         if assoc == "add":
             # get the playlist by the id and
-            # add to the join table the given song_id
+            # add to the join table the given choreo_id
             Playlist.objects.get(pk=pk).choreos.add(choreo_pk)
         return redirect('home')
 
