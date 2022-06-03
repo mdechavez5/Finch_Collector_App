@@ -29,39 +29,4 @@
             <div class="playlist mb-5">"There are no videos in this playlist"</div>
         {% endfor %}
     </div>
-
-    <div class="home__team">
-        {% for team in teams %}
-            <div class="team mb-5">
-                <h3 class="title is-3 has-text-success">{{team.title}}</h3>
-                <hr />
-
-                <div class="gallery">
-                {% for dancer in team.dancers.all %}
-
-                    <a href="{% url 'dancer_detail' dancer.pk %}">
-                        <div class="card">
-                            <div class="card-image">
-                                <figure class="image is-square">
-                                    <img src="{{dancer.img}}" alt="{{dancer.name}}" />
-                                </figure>
-                            </div>
-                            <div class="card-header">
-                                <p class="card-header-title">{{dancer.name}}</p>
-                            </div>
-                        </div>
-                    </a>
-                    {% empty %}
-                    <article class="message">
-                        <div class="message-header">
-                            <p>No Dancers Available</p>
-                        </div>
-                    </article>
-                    {% endfor %}
-                </div>
-            </div>
-        {% empty %} 
-            <div class="team mb-5">"There are no dancers on this team"</div>
-        {% endfor %}
-    </div>
 {% endblock %}

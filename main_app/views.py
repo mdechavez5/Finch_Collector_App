@@ -17,7 +17,6 @@ class Home(TemplateView):
     template_name = "home.html"
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["teams"] = Team.objects.all()
         context["playlists"] = Playlist.objects.filter(user=self.request.user)
         return context
 
@@ -114,6 +113,15 @@ class TeamsList(TemplateView):
         else:
             context["teams"] = Team.objects.all()
             context["header"] = "Teams"
+        return context
+
+class TeamDetail(DetailView):
+    model = Team
+    template_name = "team_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["playlists"] = Playlist.objects.all()
         return context
 
 class Signup(View):

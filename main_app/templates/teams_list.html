@@ -7,7 +7,7 @@
 <h1 class="title pt-5">Teams</h1>
 <div class="gallery">
   {% for team in teams %}
-  <a href="">
+  <a href="{% url 'team_detail' team.pk %}">
     <div class="card">
       <div class="card-image">
         <figure class="image is-square">

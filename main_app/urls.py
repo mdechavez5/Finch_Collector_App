@@ -13,4 +13,5 @@ urlpatterns = [
     path('playlists/<int:pk>/choreos/<int:choreo_pk>/', views.PlaylistChoreoAssoc.as_view(), name="playlist_choreo_assoc"),
     path('accounts/signup/', views.Signup.as_view(), name="signup"),
     path('teams/', views.TeamsList.as_view(), name="teams_list"),
+    path('teams/<int:pk>/', views.TeamDetail.as_view(), name="team_detail"),
 ] 

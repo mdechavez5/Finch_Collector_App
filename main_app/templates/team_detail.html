@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %} About {% endblock %}
+{% block content %}
+    <div class="detail__img">
+        <img src="{{team.img}}" alt="{{team.title}}" />
+    </div>
+    <div class="detail__name">
+        <h1 class="title">{{team.title}}</h1>
+    </div>
+    <div class="detail__container">
+        <h3 class="title is-3">Members</h3>
+        <div class="gallery">
+            {% for dancer in team.dancers.all %}
+    
+                <a href="{% url 'dancer_detail' dancer.pk %}">
+                    <div class="card">
+                        <div class="card-image">
+                            <figure class="image is-square">
+                                <img src="{{dancer.img}}" alt="{{dancer.name}}" />
+                            </figure>
+                        </div>
+                        <div class="card-header">
+                            <p class="card-header-title">{{dancer.name}}</p>
+                        </div>
+                    </div>
+                </a>
+                {% empty %}
+                <article class="message">
+                    <div class="message-header">
+                        <p>No Dancers Available</p>
+                    </div>
+                </article>
+                {% endfor %}
+        </div>
+    </div>
+{% endblock %}
