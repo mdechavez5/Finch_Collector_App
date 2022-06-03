@@ -26,6 +26,7 @@ class Choreo(models.Model):
 
 class Team(models.Model):
     title = models.CharField(max_length=150)
+    img = models.CharField(max_length=250, default=1)
     # this is going to create the many to many relationship and join table
     dancers = models.ManyToManyField(Dancer)
 
