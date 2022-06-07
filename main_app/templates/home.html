@@ -2,6 +2,34 @@
 {% block title %} Home {% endblock %}
 {% block content %}
 
+<!-- <form class="mb-5" method="get"> -->
+    <form class="mb-5" action="" method="post">
+        {% csrf_token %}
+        <div class="field has-addons">
+            <div class="control">
+                <input
+                    class="input"
+                    type="text"
+                    name="title"
+                    placeholder="Title"
+                    required
+                />
+            </div>
+            <div class="control">
+                <input
+                    class="input"
+                    type="number"
+                    name="user_id"
+                    placeholder="User"
+                    required
+                />
+            </div>
+            <div class="control">
+                <input class="button is-primary" type="submit" value="Add Playlist" />
+            </div>
+        </div>
+    </form>
+
     <div class="home__playlists">
         {% for playlist in playlists %}
             <div class="playlist mb-5">
